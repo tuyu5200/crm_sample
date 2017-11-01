@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.enable.DynamicMethodInvocation" value="true"/>
+    <constant name="struts.action.extension" value="do"/>
+    <constant name="struts.objectFactory" value="spring"/>
+    <constant name="struts.multipart.maxSize" value="102100"/>
+    <package name="base" namespace="/" extends="json-default">
+        <!--全局结果处理-->
+        <global-results>
+            <result name="error">WEB-INF/views/commons/error.jsp</result>
+            <result name="logout">login.jsp</result>
+        </global-results>
+        <action name="login" class="loginAction" method="login">
+            <!--登陆成功-->
+            <result name="success" type="redirectAction">
+                <param name="namespace">/sys</param>
+                <param name="actionName">index</param>
+                <param name="method">execute</param>
+            </result>
+            <!--登陆失败-->
+            <result name="login">login.jsp</result>
+            <!--安全退出-->
+            <result name="logout" type="redirect">login.jsp</result>
+        </action>
+    </package>
+
+    <include file="META-INF/struts/sys/struts-sys.xml"/>
+</struts>

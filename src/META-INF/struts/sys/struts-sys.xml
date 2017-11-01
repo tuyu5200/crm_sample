@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <package name="sys" namespace="/sys" extends="base">
+
+        <!--登陆成功的页面跳转，方便做权限控制-->
+        <action name="index" class="indexAction" method="execute">
+            <result name="index" type="redirectAction">
+                <param name="namespace">/sys</param>
+                <param name="actionName">user</param>
+                <param name="method">queryAll</param>
+            </result>
+        </action>
+
+        <action name="user" class="userAction" method="queryAll">
+            <result name="queryAll">WEB-INF/views/sys/user/index.jsp</result>
+            <!--增删改后的重定向，防止表单重复提交-->
+            <result name="refresh" type="redirectAction">
+                <param name="namespace">/sys</param>
+                <param name="actionName">user</param>
+                <param name="method">queryAll</param>
+            </result>
+            <result name="ajax" type="json">
+                <param name="root"></param>
+            </result>
+        </action>
+
+        <action name="role" class="roleAction" method="queryAll">
+            <result name="queryAll">WEB-INF/views/sys/role/index.jsp</result>
+            <result name="refresh" type="redirectAction">
+                <param name="namespace">/sys</param>
+                <param name="actionName">role</param>
+                <param name="method">queryAll</param>
+            </result>
+
+        </action>
+
+        <action name="resource" class="resourceAction">
+
+        </action>
+    </package>
+</struts>
